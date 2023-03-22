@@ -11,17 +11,17 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
+  <div class="my-3">
+    <%= form.label :title, for: "postTitleInput", class: "form-label" %>
+    <%= form.text_field :title, class: "form-control", id: "postTitleInput" %>
   </div>
 
-  <div>
-    <%= form.label :content, style: "display: block" %>
-    <%= form.text_area :content %>
+  <div class="my-3">
+    <%= form.label :content, for: "postContentInput" %>
+    <%= form.text_area :content, class: "form-control", id: "postContentInput" %>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="my-3">
+    <%= form.submit "投稿する", class: "btn btn-primary" %>
   </div>
 <% end %>
