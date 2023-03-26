@@ -6,7 +6,9 @@
 
   <p>
     <strong>Content:</strong>
-    <%= post.content %>
+    <div class="mw-100 mh-auto">
+      <%= simple_format(post.content) %>
+    </div>
   </p>
 
 </div>

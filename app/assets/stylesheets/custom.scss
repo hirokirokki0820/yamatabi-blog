@@ -1,0 +1,36 @@
+#filename {
+  display: none;
+}
+
+.upload-btn{
+  font-size: 14px;
+  min-height: 46px;
+  line-height: 3.14285714;
+  padding: 0 36px;
+  display: inline-block;
+  color: #2271b1;
+  border: 1px solid #2271b1;
+  border-radius: 3px;
+  background: #f6f7f7;
+  cursor: pointer;
+}
+
+.image-box {
+  background:#f6f7f7;
+  border: 1px solid #C5C5C5;
+  width: 140px;
+  height: 140px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.image-box-selected {
+  box-shadow: 1px 1px 5px 5px #2271b1;
+  border: 1px solid white;
+}
+
+.image-size {
+  max-width: 100%;
+  // width: 640px;
+  height: auto;
+}

@@ -3,11 +3,17 @@
   <head>
     <title>YamatabiBlog</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="turbo-visit-control" content="reload">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <!--
+    <script type="text/javascript" src="/assets/tinymce.js"></script>
+    -->
+    <script src="https://cdn.tiny.cloud/1/<%= ENV['TINYMCE_API_KEY'] %>/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://kit.fontawesome.com/<%= ENV['FONTAWESOME_API_KEY'] %>.js" crossorigin="anonymous"></script>
   </head>
 
   <body>
@@ -22,5 +28,21 @@
         </div>
       <% end %>
     </div>
+    <script>
+      tinymce.init({
+        selector: 'textarea',
+        plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss',
+        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+        tinycomments_mode: 'embedded',
+        tinycomments_author: 'Author name',
+        mergetags_list: [
+          { value: 'First.Name', title: 'First Name' },
+          { value: 'Email', title: 'Email' },
+        ],
+        language: 'ja',
+        images_upload_url: "/images/upload_images",
+        images_upload_credentials: true
+      });
+    </script>
   </body>
 </html>

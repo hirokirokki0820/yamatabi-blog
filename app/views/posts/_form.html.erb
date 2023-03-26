@@ -1,27 +1,80 @@
-<%= form_with(model: post) do |form| %>
-  <% if post.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+<div data-controller="images tinymce">
+  <%= form_with(model: post) do |form| %>
+    <% if post.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
 
-      <ul>
-        <% post.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+        <ul>
+          <% post.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="my-3">
+      <%= form.label :title, for: "postTitleInput", class: "form-label" %>
+      <%= form.text_field :title, class: "form-control", id: "postTitleInput" %>
+    </div>
+
+    <div class="my-3" data-tinymce-target="post">
+      <%= form.label :content, for: "postContentInput" %>
+      <br>
+      <!-- Button trigger modal -->
+      <button type="button" class="my-2 btn btn-secondary" data-bs-toggle="modal" data-bs-target="#fileUploadModal">
+        <i class="fa-regular fa-image"></i> メディアを追加
+      </button>
+      <%= form.text_area :content, class: "tinymce form-control", rows: 28, id: "postContentInput" %>
+    </div>
+
+    <div class="my-3">
+      <%= form.submit "投稿する", class: "btn btn-primary" %>
     </div>
   <% end %>
 
-  <div class="my-3">
-    <%= form.label :title, for: "postTitleInput", class: "form-label" %>
-    <%= form.text_field :title, class: "form-control", id: "postTitleInput" %>
+  <!-- メディア追加用のモーダル -->
+  <div class="modal fade" id="fileUploadModal" tabindex="-1" aria-labelledby="fileUploadModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="fileUploadModalLabel">メディアの選択またはアップロード</h1>
+          <button type="button" class="btn-close" data-action="click->images#imageSelectReset" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="my-3 text-center">
+            <label for="filename">
+              <span class="upload-btn">ファイルを選択</span>
+              <input type="file" id="filename" accept="image/*" multiple>
+            </label>
+          </div>
+          <div class="my-3 text-center">
+            <p>または</p>
+            <p class="fs-5">ここにファイルをドラッグ＆ドロップ</p>
+          </div>
+          <hr style="border: 1px solid #e3e1e1">
+          <div>
+            <% if ActiveStorage::Blob.exists? %>
+              <div class="my-2" data-images-target="images">
+                <% ActiveStorage::Blob.all.order(created_at: :desc).each do |image| %>
+                  <div class="image-box d-inline-flex justify-content-center mx-1 mb-3"
+                  data-controller="images tinymce" data-images-target="image_box" data-tinymce-target="image_box" data-action="click->images#selectedImageBox">
+                    <%= image_tag(image, class: "mx-auto") %>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="modal-footer d-flex justify-content-between">
+          <div>
+            <button class="btn btn-secondary" data-action="click->images#imageSelectReset">選択解除</button>
+          </div>
+          <div>
+            <!--<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-action="click->images#imageSelectReset">閉じる</button> -->
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-action="click->images#insertImageTag">選択</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="my-3">
-    <%= form.label :content, for: "postContentInput" %>
-    <%= form.text_area :content, class: "form-control", id: "postContentInput" %>
-  </div>
-
-  <div class="my-3">
-    <%= form.submit "投稿する", class: "btn btn-primary" %>
-  </div>
-<% end %>
+</div>
