@@ -19,6 +19,8 @@ module YamatabiBlog
     config.i18n.default_locale = :ja
     config.time_zone = "Tokyo"
 
+    # sanitaize allowed tags
+
     # config.eager_load_paths << Rails.root.join("extras")
   end
 end

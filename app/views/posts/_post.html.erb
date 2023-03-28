@@ -1,13 +1,14 @@
 <div id="<%= dom_id post %>">
   <p>
     <strong>Title:</strong>
-    <%= post.title %>
+    <h1><%= post.title %></h1>
   </p>
 
   <p>
     <strong>Content:</strong>
-    <div class="mw-100 mh-auto">
-      <%= simple_format(post.content) %>
+    <div class="post-content">
+      <%#= sanitize(post.content, tags: %w(table tr td img)) %>
+      <%= sanitize post.content %>
     </div>
   </p>
 

@@ -22,6 +22,7 @@
   height: 140px;
   overflow: hidden;
   cursor: pointer;
+  z-index: 1;
 }
 
 .image-box-selected {
@@ -31,6 +32,23 @@
 
 .image-size {
   max-width: 100%;
-  // width: 640px;
   height: auto;
+}
+
+.image-drag-over {
+  background-color: rgba(26, 83, 120, 0.6);
+  z-index: 999;
+}
+
+.post-content {
+
+}
+
+.post-content ul {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border: 1px solid #E7E8E7;
+  background: #FCFCFC;
+  & li{
+  }
 }
