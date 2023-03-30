@@ -67,7 +67,11 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:title, :content)
+      params.require(:post).permit(:title, :content, :thumbnail)
+    end
+
+    def uploaded_image
+      ActiveStorage::Blob.find(params[:post][:thumbnail]) if params[:post][:thumbnail]
     end
 
     # Adminユーザーのみ許可

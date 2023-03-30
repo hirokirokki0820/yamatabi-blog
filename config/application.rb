@@ -19,6 +19,9 @@ module YamatabiBlog
     config.i18n.default_locale = :ja
     config.time_zone = "Tokyo"
 
+    # ActiveStorage 上書きされないようにする
+    config.active_storage.replace_on_assign_to_many = false
+
     # sanitaize allowed tags
 
     # config.eager_load_paths << Rails.root.join("extras")

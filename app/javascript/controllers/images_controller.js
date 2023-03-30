@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="images"
 export default class extends Controller {
-  static targets = ["select", "preview_images", "error", "drop"]
+  static targets = ["select", "preview_images", "preview_thumbnail", "error", "drop", "modal_footer"]
 
 
   /********** 画像アップロード時の処理 ***********/
@@ -105,7 +105,7 @@ export default class extends Controller {
 
   // 画像のプレビュー
   previewImage(file, id){
-    const preview = this.preview_imagesTarget
+    const previewImages = this.preview_imagesTarget
     const fileReader = new FileReader()
     const setAttr = (element, obj)=>{
       Object.keys(obj).forEach((key)=>{
@@ -125,8 +125,45 @@ export default class extends Controller {
       img.src = this.result
       img.id = id
       img.class = "mx-auto"
-      preview.prepend(imgBox)
+      previewImages.prepend(imgBox)
     })
+  }
+
+  // アイキャッチ画像のプレビュー
+  previewThumbnail(){
+    const previewThumbnail = this.preview_thumbnailTarget
+    const selectedImageBox = document.querySelector(".image-box-selected")
+    if(selectedImageBox){
+      if(previewThumbnail.hasChildNodes()){
+        this.deletePreviewThumbnail()
+      }
+      const selectedImageTag = selectedImageBox.firstElementChild
+      const setAttr = (element, obj)=>{
+        Object.keys(obj).forEach((key)=>{
+          element.setAttribute(key, obj[key])
+        })
+      }
+      const img = new Image()
+      const hiddenField = document.createElement("input")
+      const hiddenFieldAttr = {
+        "name" : "post[thumbnail]",
+        "style" : "none",
+        "type" : "hidden",
+        "value" : selectedImageTag.id
+      }
+      setAttr(hiddenField, hiddenFieldAttr)
+      img.src = selectedImageTag.src
+      img.id = selectedImageTag.id
+      previewThumbnail.appendChild(img)
+      previewThumbnail.appendChild(hiddenField)
+    }
+  }
+
+  deletePreviewThumbnail(){
+    const previewThumbnail = this.preview_thumbnailTarget
+    while(previewThumbnail.firstChild){
+      previewThumbnail.removeChild(previewThumbnail.firstChild)
+    }
   }
 
 
@@ -142,15 +179,60 @@ export default class extends Controller {
 
 
   insertImageTag() {
-    const selectedImageTag = document.querySelector(".image-box-selected").firstElementChild
-    const sr = `${selectedImageTag.getAttribute("src")}`
-    tinymce.activeEditor.insertContent('<img src="' + sr + '" class="image-size" />')
+    const selectedImageBox = document.querySelector(".image-box-selected")
+    if(selectedImageBox){
+      const selectedImageTag = selectedImageBox.firstElementChild
+      const sr = `${selectedImageTag.getAttribute("src")}`
+      tinymce.activeEditor.insertContent('<img src="' + sr + '" class="image-size" />')
+    }
   }
 
-  imageSelectReset(){
+  //resetSelectedImage
+  resetSelectedImage(){
     const selectedImages = this.preview_imagesTarget.querySelectorAll(".image-box-selected")
     for(const selectedImage of selectedImages){
       selectedImage.classList.remove("image-box-selected")
     }
   }
+
+  /********** モーダルの表示(Bootstraoo) ***********/
+  openModal(e){
+    const imageModal = new bootstrap.Modal(document.getElementById('fileUploadModal'), {})
+    imageModal.show()
+    const modalFooterBtn = this.modal_footerTarget
+    const modalType = e.currentTarget.getAttribute("data-modal-type")
+    const setAttr = (element, obj)=>{
+      Object.keys(obj).forEach((key)=>{
+        element.setAttribute(key, obj[key])
+      })
+    }
+    console.log(e.currentTarget)
+    if(modalFooterBtn.firstElementChild){
+      modalFooterBtn.firstElementChild.remove()
+    }
+    if(modalType === "thumbnail"){
+      const thumbnailBtn = document.createElement("button")
+      const thumbnailBtnAttr = {
+        "type" : "button",
+        "class" : "btn btn-primary",
+        "data-bs-dismiss" : "modal",
+        "data-action" : "click->images#previewThumbnail click->images#resetSelectedImage"
+      }
+      setAttr(thumbnailBtn, thumbnailBtnAttr)
+      thumbnailBtn.textContent = "アイキャッチ画像に設定"
+      modalFooterBtn.appendChild(thumbnailBtn)
+    }else if(modalType === "content"){
+      const contentBtn = document.createElement("button")
+      const contentBtnAttr = {
+        "type" : "button",
+        "class" : "btn btn-primary",
+        "data-bs-dismiss" : "modal",
+        "data-action" : "click->images#insertImageTag click->images#resetSelectedImage"
+      }
+      setAttr(contentBtn, contentBtnAttr)
+      contentBtn.textContent = "選択"
+      modalFooterBtn.appendChild(contentBtn)
+    }
+  }
+
 }

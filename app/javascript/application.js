@@ -2,6 +2,7 @@
 import "@hotwired/turbo-rails"
 import "./controllers"
 import * as bootstrap from "bootstrap"
+window.bootstrap = require('bootstrap/dist/js/bootstrap.bundle.js');
 
 // document.addEventListener('turbo:load', ()=> {
 //   tinymce.init({

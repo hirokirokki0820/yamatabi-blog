@@ -2,7 +2,7 @@
   display: none;
 }
 
-.upload-btn{
+.upload-image-btn{
   font-size: 14px;
   min-height: 46px;
   line-height: 3.14285714;
@@ -40,9 +40,39 @@
   z-index: 999;
 }
 
-.post-content {
-
+.thumbnail-no-image {
+  font-size: 20px;
+  text-align: center;
+  line-height: 140px;
 }
+
+// .image-close {
+//   display: block;
+//   position: relative;
+//   width: 20px;
+//   height: 20px;
+//   border: 2px solid #333; /* 枠の調整 */
+//   background: #fff; /* ボタンの背景色 */
+
+//   &::before,
+//   &::after{
+//     content: "";
+//     position: absolute;
+//     top: 50%;
+//     left: 50%;
+//     width: 3px; /* 棒の幅（太さ） */
+//     height: 25spx; /* 棒の高さ */
+//     background: #333; /* バツ印の色 */
+//   }
+
+//   &::before{
+//     transform: translate(-50%,-50%) rotate(45deg);
+//   }
+
+//   &::after{
+//     transform: translate(-50%,-50%) rotate(-45deg);
+//   }
+// }
 
 .post-content ul {
   padding-top: 12px;

@@ -12,16 +12,30 @@
       </div>
     <% end %>
 
+    <!-- タイトル -->
     <div class="my-3">
       <%= form.label :title, for: "postTitleInput", class: "form-label fw-bold" %>
       <%= form.text_field :title, class: "form-control", id: "postTitleInput" %>
     </div>
 
+    <!-- アイキャッチ画像 -->
+    <div class="my-3">
+      <%= form.label :thumbnail, "アイキャッチ画像", class: "form-label fw-bold" %>
+      <div type="button" class="image-box d-flex justify-content-center mx-1 mb-3 modal-btn" data-images-target="preview_thumbnail" data-action="click->images#openModal" data-modal-type="thumbnail">
+        <% if ActiveStorage::Blob.find_by(id: @post.thumbnail) %>
+          <%= image_tag ActiveStorage::Blob.find(@post.thumbnail) %>
+        <% else %>
+          <p class="thumbnail-no-image"><i class="fa-regular fa-image"></i> No Image</p>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- 本文 -->
     <div class="my-3">
       <%= form.label :content, for: "postContentInput", class: "fw-bold" %>
       <br>
       <!-- Button trigger modal -->
-      <button type="button" class="my-2 btn btn-secondary" data-bs-toggle="modal" data-bs-target="#fileUploadModal" data-action="click->images#imageSelectReset">
+      <button type="button" class="my-2 btn btn-secondary modal-btn" data-action="click->images#openModal" data-modal-type="content">
         <i class="fa-regular fa-image"></i> メディアを追加
       </button>
       <%= form.text_area :content, class: "tinymce form-control", rows: 28, id: "postContentInput" %>
@@ -38,12 +52,12 @@
       <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="fileUploadModalLabel">メディアの選択またはアップロード</h1>
-          <button type="button" class="btn-close" data-action="click->images#imageSelectReset" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close" data-action="click->images#resetSelectedImage" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body" data-images-target="drop" data-action="dragover->images#dragover dragleave->images#dragleave drop->images#dropImages">
           <div class="my-3 text-center">
             <label for="filename">
-              <span class="upload-btn">ファイルを選択</span>
+              <span class="upload-image-btn">ファイルを選択</span>
               <input type="file" id="filename" accept="image/*" data-images-target="select" data-action="change->images#selectImages" multiple>
             </label>
           </div>
@@ -67,9 +81,8 @@
           <div>
             <button class="btn btn-danger" data-action="click->images#deleteImage">削除</button>
           </div>
-          <div>
-            <!--<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-action="click->images#imageSelectReset">閉じる</button> -->
-            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-action="click->images#insertImageTag">選択</button>
+          <div data-images-target="modal_footer">
+            <!-- ここにボタンを追加 -->
           </div>
         </div>
       </div>
