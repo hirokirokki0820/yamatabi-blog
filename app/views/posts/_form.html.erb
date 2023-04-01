@@ -41,8 +41,11 @@
       <%= form.text_area :content, class: "tinymce form-control", rows: 28, id: "postContentInput" %>
     </div>
 
-    <div class="my-3">
+    <div class="my-3 d-flex justify-content-between">
       <%= form.submit "投稿する", class: "btn btn-primary" %>
+      <% if !post.new_record? %>
+        <%= link_to "削除する", post, class: "d-inline-block text-danger", data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
+      <% end %>
     </div>
   <% end %>
 
@@ -58,7 +61,7 @@
           <div class="my-3 text-center">
             <label for="filename">
               <span class="upload-image-btn">ファイルを選択</span>
-              <input type="file" id="filename" accept="image/*" data-images-target="select" data-action="change->images#selectImages" multiple>
+              <input type="file" id="filename" accept="image/*" style="display: none" data-images-target="select" data-action="change->images#selectImages" multiple>
             </label>
           </div>
           <div class="my-3 text-center">

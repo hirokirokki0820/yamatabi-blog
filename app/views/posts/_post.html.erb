@@ -1,15 +1,19 @@
 <div id="<%= dom_id post %>">
-  <p>
-    <strong>Title:</strong>
-    <h1><%= post.title %></h1>
-  </p>
-
-  <p>
-    <strong>Content:</strong>
+  <div class="post-box mx-auto">
+    <h1 class="post-title my-3 fs-2 fw-bold"><%= post.title %></h1>
+    <p><i class="fa-regular fa-clock"></i> <%= post.created_at.strftime('%Y/%m/%d')  %></p>
+    <% if ActiveStorage::Blob.find_by(id: post.thumbnail) %>
+      <div class="post-show-thumbnail-box mx-auto">
+        <%= image_tag ActiveStorage::Blob.find_by(id: post.thumbnail), class: "card-img-top" %>
+      </div>
+    <% else %>
+      <div class="post-show-thumbnail-box mx-auto">
+        <%= image_tag "no_image.png", class: "card-img-top" %>
+      </div>
+    <% end %>
     <div class="post-content">
       <%#= sanitize(post.content, tags: %w(table tr td img)) %>
       <%= sanitize post.content %>
     </div>
-  </p>
-
+  </div>
 </div>

@@ -1,14 +1,44 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Posts</h1>
+<main role="main">
 
-<div id="posts">
-  <% @posts.each do |post| %>
-    <%= render post %>
-    <p>
-      <%= link_to "Show this post", post %>
-    </p>
-  <% end %>
-</div>
+  <div class="text-center blog-jumbotron">
+    <div class="container">
+      <h1 class="">山旅ブログ</h1>
+      <p class="lead text-muted">登山と旅行がメインのブログ。僕自身が体験したことをありのままに発信します。</p>
+    </div>
+  </div>
 
-<%= link_to "New post", new_post_path %>
+  <div class="album py-5 bg-light">
+    <div class="container">
+      <div class="row">
+      <% @posts.order(created_at: :desc).each do |post| %>
+        <div class="col-md-4">
+          <%= link_to post, class: "card-link" do %>
+            <div class="card mb-4 shadow-sm">
+              <% if ActiveStorage::Blob.find_by(id: post.thumbnail) %>
+                <div class="post-index-thumbnail-box">
+                  <%= image_tag ActiveStorage::Blob.find_by(id: post.thumbnail), class: "card-img-top" %>
+                </div>
+              <% else %>
+                <div class="post-index-thumbnail-box">
+                  <%= image_tag "no_image.png", class: "card-img-top" %>
+                </div>
+              <% end %>
+              <div class="card-body">
+                <h1 class="card-text d-inline-block" style="height: 90px;"><%= post.title.truncate(35) %></h1>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="text-muted">
+                    <small><i class="fa-regular fa-clock"></i> <%= post.created_at.strftime('%Y/%m/%d')  %></small>
+                  </div>
+                  <!-- <small class="text-muted"><i class="fa-solid fa-clock-rotate-left"></i> <%= post.updated_at.strftime('%Y/%m/%d')  %></small> -->
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</main>

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root "home#top"
+  root "posts#index"
   devise_for :users
   resources :posts
   post "images/upload_image", to: "images#upload_image"
