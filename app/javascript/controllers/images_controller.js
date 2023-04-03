@@ -206,7 +206,6 @@ export default class extends Controller {
         element.setAttribute(key, obj[key])
       })
     }
-    console.log(e.currentTarget)
     if(modalFooterBtn.firstElementChild){
       modalFooterBtn.firstElementChild.remove()
     }
