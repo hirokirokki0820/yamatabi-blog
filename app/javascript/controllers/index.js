@@ -4,11 +4,11 @@
 
 import { application } from "./application"
 
+import ConfirmsController from "./confirms_controller"
+application.register("confirms", ConfirmsController)
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
 import ImagesController from "./images_controller"
 application.register("images", ImagesController)
-
-import TinymceController from "./tinymce_controller"
-application.register("tinymce", TinymceController)

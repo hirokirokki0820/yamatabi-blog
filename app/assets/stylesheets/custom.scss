@@ -19,11 +19,11 @@
   background-size: 100% 8%;
   background-position: bottom;
   color: #323232;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .post-box h4 {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: 600;
   position: relative;
   margin: 1rem 0 1rem 0;
@@ -48,7 +48,7 @@
     font-size: 1.2rem;
   }
   .post-box h4 {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
 }
 
@@ -72,7 +72,7 @@
     li {
       list-style: none;
       display: inline-block;
-      min-width: 80px;
+      margin-right: 20px;
       a {
         text-decoration: none;
         color: #555;
@@ -102,7 +102,15 @@
 .blog-jumbotron {
   margin-bottom: 20px;
   padding: 20px 0 30px 0;
-  background: rgba(46, 186, 0, 0.229);
+  background: #D0F0D2;
+  // background: #93c9ff;
+  border-radius: 5px;
+  h1 {
+    color: #555;
+    font-size: 2rem;
+    font-weight: bold;
+    font-family: arial, sans-serif;
+  }
 }
 
 @include media-breakpoint-down(md){
@@ -235,4 +243,68 @@
   .post-show-thumbnail-box {
     height: 220px;
   }
+}
+
+/*ページネーション自体のデザイン*/
+.pagination>li>a {
+  border: none;     /*枠線をなくす*/
+  color: #696969;   /*文字の色を変える*/
+}
+
+/* 表示しているページ番号のデザイン */
+.pagination>.active>a {
+  background: #93c9ff;     /*背景の色を変える*/
+  border-radius: 15px;     /*角を丸くする*/
+}
+
+/*ホバー時のデザイン*/
+.pagination>li>a:hover {
+  border-radius: 15px;    /*角を丸くする*/
+}
+
+
+/************* フッター **************/
+#page_top{
+  width: 90px;
+  height: 90px;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+}
+#page_top a{
+  position: relative;
+  display: block;
+  width: 90px;
+  height: 90px;
+  text-decoration: none;
+}
+#page_top a::before{
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  content: '\f102';
+  font-size: 25px;
+  color: #3f98ef;
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  top: -40px;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+  text-align: center;
+}
+#page_top a::after{
+  content: 'PAGE TOP';
+  font-size: 13px;
+  color: #fff;
+  position: absolute;
+  top: 45px;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+  text-align: center;
+  color: #3f98ef;
 }

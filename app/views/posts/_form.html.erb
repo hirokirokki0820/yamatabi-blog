@@ -1,4 +1,4 @@
-<div data-controller="images">
+<div data-controller="images confirms">
   <%= form_with(model: post) do |form| %>
     <% if post.errors.any? %>
       <div style="color: red">
@@ -42,9 +42,9 @@
     </div>
 
     <div class="my-3 d-flex justify-content-between">
-      <%= form.submit "投稿する", class: "btn btn-primary" %>
+      <%= form.submit "投稿する", class: "btn btn-primary", data: { action: "click->confirms#notConfirm" } %>
       <% if !post.new_record? %>
-        <%= link_to "削除する", post, class: "d-inline-block text-danger", data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
+        <%= link_to "削除する", post, class: "d-inline-block text-danger", data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？", action: "click->confirms#notConfirm" } %>
       <% end %>
     </div>
   <% end %>

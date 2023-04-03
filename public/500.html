@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>We're sorry, but something went wrong (500)</title>
+  <title>ページが見つかりませんでした。(404)</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/assets/application-3856bca8000ebea3978fd307307e1b383211065829927d82b6ccfa28911ccd1d.css" data-turbo-track="reload">
   <style>
   .rails-default-error-page {
-    background-color: #EFEFEF;
     color: #2E2F30;
     text-align: center;
     font-family: arial, sans-serif;
@@ -23,16 +24,16 @@
     border-right-color: #999;
     border-left-color: #999;
     border-bottom-color: #BBB;
-    border-top: #B00100 solid 4px;
+    /* border-top: #B00100 solid 4px; */
     border-top-left-radius: 9px;
     border-top-right-radius: 9px;
     background-color: white;
-    padding: 7px 12% 0;
+    padding: 50px 12% 50px;
     box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
   }
 
   .rails-default-error-page h1 {
-    font-size: 100%;
+    font-size: 1.2rem;
     color: #730E15;
     line-height: 1.5em;
   }
@@ -55,12 +56,30 @@
 </head>
 
 <body class="rails-default-error-page">
-  <!-- This file lives in public/500.html -->
+  <header>
+    <div class="header-box container d-flex justify-content-between flex-wrap">
+      <div class="blog-title-box">
+        <a href="/">
+          <img width="350px" src="/assets/blog-title-4d3ab914a431d2a0496a54b55d93c4014b210693c96e58dc24c62d7b7b514606.png">
+        </a>
+      </div>
+      <nav class="nav-menu-box">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Category</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <!-- This file lives in public/404.html -->
   <div class="dialog">
     <div>
-      <h1>We're sorry, but something went wrong.</h1>
+      <h1>サーバーエラーが発生しました。(500)</h1>
+      <p>サーバーの問題でお探しのページを表示できません。</p>
+      <p>再度時間をおいてアクセスしてください。</p>
+      <a href="/">トップページへ戻る</a>
     </div>
-    <p>If you are the application owner check the logs for more information.</p>
   </div>
 </body>
 </html>

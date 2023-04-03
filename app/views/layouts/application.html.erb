@@ -9,16 +9,14 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
-    <!--
-    <script type="text/javascript" src="/assets/tinymce.js"></script>
-    -->
+
     <script src="https://cdn.tiny.cloud/1/<%= ENV['TINYMCE_API_KEY'] %>/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <script src="https://kit.fontawesome.com/<%= ENV['FONTAWESOME_API_KEY'] %>.js" crossorigin="anonymous"></script>
   </head>
 
   <body>
     <header>
-      <% if current_user.admin? %>
+      <% if user_signed_in? && current_user.admin? %>
         <%= render 'layouts/admin_navigation' %>
       <% end %>
       <%= render 'layouts/navigation' %>
@@ -33,9 +31,6 @@
       <% end %>
     </div>
     <%= render 'layouts/footer' %>
-    <!--
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script> -->
     <script>
       tinymce.init({
         selector: 'textarea',

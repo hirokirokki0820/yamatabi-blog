@@ -83,3 +83,6 @@ gem "dotenv-rails"
 # TinyMCE(リッチテキストエディタ)
 gem "tinymce-rails"
 gem "tinymce-rails-langs" # 日本語対応用
+
+# ページネーション(kaminari)
+gem "kaminari"
