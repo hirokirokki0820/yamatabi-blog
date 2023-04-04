@@ -86,3 +86,9 @@ gem "tinymce-rails-langs" # 日本語対応用
 
 # ページネーション(kaminari)
 gem "kaminari"
+
+# サイトマップジェネレーター
+gem "sitemap_generator"
+
+# whenever
+gem "whenever", require: false
