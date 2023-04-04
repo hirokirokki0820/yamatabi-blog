@@ -30,6 +30,20 @@
       </div>
     </div>
 
+    <!-- カテゴリー -->
+    <div class="my-3">
+      <%= form.label "カテゴリー", class: "form-label fw-bold" %>
+      <div>
+        <%= form.collection_check_boxes(:category_ids, Category.all.order(:name), :id, :name) do |b| %>
+          <%= b.label class:"d-inline-block mx-2" do %>
+            <%= b.check_box + ' ' + b.text %>
+          <%end%>
+          <%#= b.label(class: "form-check d-flex d-block mx-1") { b.check_box + b.text } %>
+        <% end %>
+      </div>
+        <%#= form.collection_check_boxes :category_ids, Category.all.order(:name), :id, :name, { multiple: true, class: "form-check-input d-inline-block mx-2" } %>
+    </div>
+
     <!-- 本文 -->
     <div class="my-3">
       <%= form.label :content, for: "postContentInput", class: "fw-bold" %>

@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[ show edit update destroy ]
-  before_action :authenticate_user!, only: %i[ new create edit update destroy ]
   before_action :require_admin_user, only: %i[ new create edit update destroy ]
+  # before_action :authenticate_user!, only: %i[ new create edit update destroy ]
 
   # GET /posts or /posts.json
   def index
@@ -67,18 +67,10 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:title, :content, :thumbnail).merge(user_id: current_user.id)
+      params.require(:post).permit(:title, :content, :thumbnail, category_ids: []).merge(user_id: current_user.id)
     end
 
     def uploaded_image
       ActiveStorage::Blob.find(params[:post][:thumbnail]) if params[:post][:thumbnail]
-    end
-
-    # Adminユーザーのみ許可
-    def require_admin_user
-      if current_user != user_signed_in? && !current_user.admin?
-        flash[:alert] = "管理者以外の投稿・編集は許可されていません。"
-        redirect_to root_path
-      end
     end
 end

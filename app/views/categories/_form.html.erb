@@ -1,0 +1,15 @@
+<%= form_with model: category do |f| %>
+    <!-- カテゴリー名 -->
+    <div class="my-3">
+      <%= f.label :name, for: "categoryNameInput", class: "form-label fw-bold" %>
+      <%= f.text_field :name, class: "form-control", id: "categoryNameInput" %>
+    </div>
+
+    <!-- submit -->
+    <div class="my-3 d-flex justify-content-between">
+      <%= f.submit (category.new_record? ? "保存する" : "更新する"), class: "btn btn-primary", data: { action: "click->confirms#notConfirm" } %>
+      <% if !category.new_record? %>
+        <%= link_to "削除する", category, class: "d-inline-block text-danger", data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？", action: "click->confirms#notConfirm" } %>
+      <% end %>
+    </div>
+<% end %>

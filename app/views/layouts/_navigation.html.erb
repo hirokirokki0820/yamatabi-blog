@@ -8,7 +8,12 @@
     <ul>
       <li><%= link_to "Home", root_path %></li>
       <li><a href="#">About</a></li>
-      <li><a href="#">Category</a></li>
+      <li><%= link_to "Category", categories_path %></li>
+      <% if user_signed_in? && !current_user.admin? %>
+        <li>
+          <%= link_to "Logout", destroy_user_session_path, class: "nav-link", data: { turbo_method: :delete, turbo_confirm: "本当にログアウトしますか？" } %>
+        </li>
+      <% end %>
     </ul>
   </nav>
 </div>

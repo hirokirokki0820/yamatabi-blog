@@ -1,5 +1,5 @@
 
-/************* 見出し(H2, H3, H4） **************/
+/*********** 見出し(H2, H3, H4）, hr ************/
 .post-box h2 {
   font-size: 1.5rem;
   font-weight: 700;
@@ -52,6 +52,10 @@
   }
 }
 
+hr {
+  border: 0.5px solid #E7E7E7;
+}
+
 
 /************* ヘッダー（navbar） **************/
 .header-admin {
@@ -97,7 +101,7 @@
   }
 }
 
-/************* ジャンボトロン（トップページ） **************/
+/******** ジャンボトロン（トップページ） **********/
 
 .blog-jumbotron {
   margin-bottom: 20px;
@@ -262,6 +266,39 @@
 .pagination>li>a:hover {
   border-radius: 15px;    /*角を丸くする*/
 }
+
+/************* カテゴリー **************/
+.category-box {
+  margin-bottom: 50px;
+}
+
+.category {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  ul {
+    margin: 0;
+    padding: 0;
+    li {
+      list-style: none;
+      display: inline-block;
+      margin: 0 15px 0 15px ;
+      a {
+        text-decoration: none;
+        color: #555;
+        font-size: 1.2rem;
+        &:hover {
+          color:rgba(26, 83, 120, 0.6);
+        }
+      }
+    }
+  }
+}
+
+// .current-category {
+//   border-bottom: 3px solid #555;
+// }
 
 
 /************* フッター **************/

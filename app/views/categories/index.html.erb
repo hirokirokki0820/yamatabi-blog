@@ -1,0 +1,55 @@
+<section class="category-box">
+  <h1>Category</h1>
+  <hr>
+  <div class="category">
+    <ul>
+      <% @categories.each do |category| %>
+        <li class=""><%= link_to category.name, category %></li>
+      <% end %>
+    </ul>
+  </div>
+  <hr>
+</section>
+
+<% @categories.each do |category| %>
+  <% if category.posts.exists? %>
+    <div class="my-5">
+      <h2><%= category.name %></h2>
+      <div class="album py-4 bg-light">
+        <div class="container">
+          <div class="row">
+          <% category.posts.first(6).each do |post| %>
+            <div class="col-md-4">
+              <%= link_to post, class: "card-link" do %>
+                <div class="card mb-4 shadow-sm">
+                  <% if ActiveStorage::Blob.find_by(id: post.thumbnail) %>
+                    <div class="post-index-thumbnail-box">
+                      <%= image_tag ActiveStorage::Blob.find_by(id: post.thumbnail), class: "card-img-top" %>
+                    </div>
+                  <% else %>
+                    <div class="post-index-thumbnail-box">
+                      <%= image_tag "no_image.png", class: "card-img-top" %>
+                    </div>
+                  <% end %>
+                  <div class="card-body">
+                    <h1 class="card-text d-inline-block" style="height: 90px;"><%= post.title.truncate(35) %></h1>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div class="text-muted">
+                        <small><i class="fa-regular fa-clock"></i> <%= post.created_at.strftime('%Y/%m/%d')  %></small>
+                      </div>
+                      <!-- <small class="text-muted"><i class="fa-solid fa-clock-rotate-left"></i> <%= post.updated_at.strftime('%Y/%m/%d')  %></small> -->
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+          </div>
+        </div>
+        <div class="d-flex justify-content-start mx-2 mt-3">
+          <%= link_to ">> もっと見る", category %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>

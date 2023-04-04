@@ -3,6 +3,7 @@ ja:
     models:
       post: 投稿
       user: ユーザー
+      category: カテゴリー
     attributes:
       post:
         id: ID
@@ -16,5 +17,10 @@ ja:
         name: ユーザー名
         email: メールアドレス
         password: パスワード
+        created_at: 作成日
+        updated_at: 更新日
+      category:
+        id: ID
+        name: カテゴリー名
         created_at: 作成日
         updated_at: 更新日
