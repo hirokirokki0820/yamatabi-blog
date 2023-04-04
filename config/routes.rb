@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root "posts#index"
+  get "profile", to: "home#profile"
   devise_for :users
   resources :posts
   resources :categories

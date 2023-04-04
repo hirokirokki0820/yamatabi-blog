@@ -1,5 +1,5 @@
 
-/*********** 見出し(H2, H3, H4）, hr ************/
+/********* 見出し(H2, H3, H4）, リスト, hr ********/
 .post-box h2 {
   font-size: 1.5rem;
   font-weight: 700;
@@ -37,6 +37,18 @@
     left: 0;/*アイコンの位置*/
     top: 0;/*アイコンの位置*/
     color: #6C9FCE; /*アイコン色*/
+  }
+}
+
+.post-content ul {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border: 1px solid #E7E8E7;
+  background: #FCFCFC;
+  li {
+    margin-left: 5px;
+    margin-right: 10px;
+    margin-bottom: 5px;
   }
 }
 
@@ -79,7 +91,7 @@ hr {
       margin-right: 20px;
       a {
         text-decoration: none;
-        color: #555;
+        color: #6C757D;
         &:hover {
           color:rgba(26, 83, 120, 0.6);
         }
@@ -165,14 +177,6 @@ hr {
   font-size: 20px;
   text-align: center;
   line-height: 140px;
-}
-
-
-.post-content ul {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  border: 1px solid #E7E8E7;
-  background: #FCFCFC;
 }
 
 
@@ -302,14 +306,46 @@ hr {
 
 
 /************* フッター **************/
+.footer-fixed {
+  min-height: 100vh;
+  position: relative;
+  padding-bottom: 120px;
+  box-sizing: border-box;
+}
+
+.footer {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.footer ul {
+  margin: 0;
+  padding: 0;
+  li {
+    list-style: none;
+    display: inline-block;
+    a {
+      text-decoration: none;
+      color: #6C757D;
+      &:hover {
+        color:rgba(26, 83, 120, 0.6);
+      }
+    }
+  }
+}
+
+/* トップに戻るボタン */
 #page_top{
   width: 90px;
   height: 90px;
   position: fixed;
   right: 0;
-  bottom: 0;
+  bottom: 50px;
   opacity: 0;
 }
+
 #page_top a{
   position: relative;
   display: block;
@@ -317,6 +353,7 @@ hr {
   height: 90px;
   text-decoration: none;
 }
+
 #page_top a::before{
   font-family: 'Font Awesome 5 Free';
   font-weight: 900;
@@ -333,6 +370,7 @@ hr {
   margin: auto;
   text-align: center;
 }
+
 #page_top a::after{
   content: 'PAGE TOP';
   font-size: 13px;

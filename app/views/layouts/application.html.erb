@@ -15,22 +15,26 @@
   </head>
 
   <body>
-    <header>
-      <% if user_signed_in? && current_user.admin? %>
-        <%= render 'layouts/admin_navigation' %>
-      <% end %>
-      <%= render 'layouts/navigation' %>
-    </header>
-    <div class="container">
-      <%= yield %>
-      <% if Rails.env.development? %>
-        <div class="p-3 rounded text-bg-light">
-          <p class=""><%= debug(params) %></p>
-          <p>セッションID => <%= session["warden.user.user.key"] %></p>
-        </div>
-      <% end %>
+    <div class="footer-fixed">
+      <header>
+        <% if user_signed_in? && current_user.admin? %>
+          <%= render 'layouts/admin_navigation' %>
+        <% end %>
+        <%= render 'layouts/navigation' %>
+      </header>
+      <div class="container">
+        <%= yield %>
+        <% if Rails.env.development? %>
+        <!--
+          <div class="p-3 rounded text-bg-light">
+            <p class=""><%= debug(params) %></p>
+            <p>セッションID => <%= session["warden.user.user.key"] %></p>
+          </div>
+        -->
+        <% end %>
+      </div>
+      <%= render 'layouts/footer' %>
     </div>
-    <%= render 'layouts/footer' %>
     <script>
       tinymce.init({
         selector: 'textarea',
