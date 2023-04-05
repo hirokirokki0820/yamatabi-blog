@@ -1,7 +1,25 @@
 <div id="<%= dom_id post %>">
   <div class="post-box mx-auto">
     <h1 class="post-title my-3 fs-2 fw-bold"><%= post.title %></h1>
-    <p><i class="fa-regular fa-clock"></i> <%= post.created_at.strftime('%Y/%m/%d')  %></p>
+    <div class="post-info">
+      <% if post.categories.exists? %>
+        <div class="post-category">
+          <% post.categories.each do |category| %>
+            <span><%= link_to category.name, category_path(category) %></span>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="none-category">
+          <span>カテゴリーなし</span>
+        </div>
+      <% end %>
+      <div class="post-date">
+        <span><i class="fa-regular fa-clock"></i> <%= post.created_at.strftime('%Y/%m/%d')  %></span>
+        <% if post.created_at.strftime('%Y/%m/%d') != post.updated_at.strftime('%Y/%m/%d') %>
+          <span><i class="fa-solid fa-arrows-rotate"></i> <%= post.updated_at.strftime('%Y/%m/%d')  %></span>
+        <% end %>
+      </div>
+    </div>
     <% if ActiveStorage::Blob.find_by(id: post.thumbnail) %>
       <div class="post-show-thumbnail-box mx-auto">
         <%= image_tag ActiveStorage::Blob.find_by(id: post.thumbnail), class: "card-img-top" %>
