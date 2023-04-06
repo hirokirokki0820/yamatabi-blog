@@ -24,4 +24,5 @@ production:
   <<: *default
   database: yamatabi_production
   username: root
-  password: <%= ENV['DATABASE_PASSWORD'] %>
+  password: <%= Rails.application.credentials.db[:password] %>
+  host: <%= Rails.application.credentials.db[:hostname] %>
