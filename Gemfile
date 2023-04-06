@@ -92,3 +92,10 @@ gem "sitemap_generator"
 
 # whenever
 gem "whenever", require: false
+
+# Capistrano(1コマンドで Rails アプリを AWS にデプロイできる)
+gem "capistrano", "~> 3.10", require: false
+gem "capistrano-rails", "~> 1.6", require: false
+gem 'capistrano-rbenv', '~> 2.2'
+gem 'capistrano-rbenv-vars', '~> 0.1'
+gem 'capistrano3-puma'
