@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: ENV['SENDER_ADDRESS']
+  default from: Rails.application.credentials.dig(:mail, :sender_address)
   layout "mailer"
 end
