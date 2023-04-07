@@ -107,7 +107,7 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
   # config.active_record.sqlite3_production_warning=false
-  　# SendGrid用のメールサーバー設定（本番環境→Heroku）
+  # SendGrid用のメールサーバー設定（本番環境→Heroku）
   config.action_mailer.default_url_options = { host: 'https://yamatabi.jp' }
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
