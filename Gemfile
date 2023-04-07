@@ -73,9 +73,11 @@ group :test do
   gem "webdrivers"
 end
 
-# AWS S3, mysql
 group :production do
+  # AWS S3
   gem 'aws-sdk-s3'
+
+  # MySQL
   gem 'mysql2'
 end
 

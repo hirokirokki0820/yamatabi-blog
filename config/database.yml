@@ -21,10 +21,8 @@ test:
   database: db/test.sqlite3
 
 production:
-  # <<: *default
   adapter: mysql2
   encoding: utf8
-  pool: 5
   database: yamatabi_production
   username: root
   password: <%= Rails.application.credentials.db[:password] %>
