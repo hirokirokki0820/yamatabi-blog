@@ -1,9 +1,10 @@
 <div class="header-box container d-flex justify-content-between flex-wrap <%= user_signed_in? && current_user.admin? ? "header-admin" : "" %>">
-  <div class="blog-title-box">
-    <%= link_to root_path do %>
+  <h1 class="blog-title">
+    <%= link_to root_path, title: "山が好き旅が好き" do %>
       <%= image_tag "blog-title.png", width: "350px" %>
+      <title>山が好き旅が好き</title>
     <% end %>
-  </div>
+  </h1>
   <nav class="nav-menu-box">
     <ul>
       <li><%= link_to "Home", root_path %></li>

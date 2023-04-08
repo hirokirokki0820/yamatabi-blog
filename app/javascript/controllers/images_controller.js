@@ -104,7 +104,7 @@ export default class extends Controller {
   }
 
   // 画像のプレビュー
-  previewImage(file, id){
+  previewImage(file, blob_id){
     const previewImages = this.preview_imagesTarget
     const fileReader = new FileReader()
     const setAttr = (element, obj)=>{
@@ -123,7 +123,7 @@ export default class extends Controller {
       setAttr(imgBox, imgBoxAttr)
       imgBox.appendChild(img)
       img.src = this.result
-      img.id = id
+      img.id = blob_id
       img.class = "mx-auto"
       previewImages.prepend(imgBox)
     })

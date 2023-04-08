@@ -22,8 +22,8 @@
     <div class="my-3">
       <%= form.label :thumbnail, "アイキャッチ画像", class: "form-label fw-bold" %>
       <div type="button" class="image-box d-flex justify-content-center mx-1 mb-3 modal-btn" data-images-target="preview_thumbnail" data-action="click->images#openModal" data-modal-type="thumbnail">
-        <% if ActiveStorage::Blob.find_by(id: @post.thumbnail) %>
-          <%= image_tag ActiveStorage::Blob.find(@post.thumbnail) %>
+        <% if current_user.images.find_by(blob_id: @post.thumbnail) %>
+          <%= image_tag current_user.images.find_by(blob_id: @post.thumbnail) %>
         <% else %>
           <p class="thumbnail-no-image"><i class="fa-regular fa-image"></i> No Image</p>
         <% end %>
@@ -56,7 +56,11 @@
     </div>
 
     <div class="my-3 d-flex justify-content-between">
-      <%= form.submit "投稿する", class: "btn btn-primary", data: { action: "click->confirms#notConfirm" } %>
+      <% if post.new_record? %>
+        <%= form.submit "公開する", class: "btn btn-primary", data: { action: "click->confirms#notConfirm" } %>
+      <% else %>
+        <%= form.submit "更新する", class: "btn btn-primary", data: { action: "click->confirms#notConfirm" } %>
+      <% end %>
       <% if !post.new_record? %>
         <%= link_to "削除する", post, class: "d-inline-block text-danger", data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？", action: "click->confirms#notConfirm" } %>
       <% end %>
@@ -85,10 +89,10 @@
           <p data-images-target="error" class="text-center text-danger"></p>
           <hr style="border: 1px solid #e3e1e1">
           <div class="my-2" data-images-target="preview_images">
-            <% if ActiveStorage::Blob.exists? %>
-              <% ActiveStorage::Blob.all.order(created_at: :desc).each do |image| %>
+            <% if current_user.images.exists? %>
+              <% current_user.images.order(created_at: :desc).each do |image| %>
                 <div class="image-box d-inline-flex justify-content-center mx-1 mb-3" data-action="click->images#selectedImageBox">
-                  <%= image_tag(image, class: "mx-auto", id: image.id) %>
+                  <%= image_tag(image, class: "mx-auto", id: image.blob_id) %>
                 </div>
               <% end %>
             <% end %>

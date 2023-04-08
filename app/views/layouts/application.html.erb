@@ -25,12 +25,10 @@
       <div class="container">
         <%= yield %>
         <% if Rails.env.development? %>
-        <!--
           <div class="p-3 rounded text-bg-light">
             <p class=""><%= debug(params) %></p>
             <p>セッションID => <%= session["warden.user.user.key"] %></p>
           </div>
-        -->
         <% end %>
       </div>
       <%= render 'layouts/footer' %>

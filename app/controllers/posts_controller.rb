@@ -1,7 +1,8 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[ show edit update destroy ]
-  before_action :require_admin_user, only: %i[ new create edit update destroy ]
-  # before_action :authenticate_user!, only: %i[ new create edit update destroy ]
+  # before_action :require_admin_user, only: %i[ new create edit update destroy ]
+  before_action :require_same_user, only: %i[ edit update destroy ]
+  before_action :authenticate_user!, only: %i[ new create edit update destroy ]
 
   # GET /posts or /posts.json
   def index
@@ -71,6 +72,14 @@ class PostsController < ApplicationController
     end
 
     def uploaded_image
-      ActiveStorage::Blob.find(params[:post][:thumbnail]) if params[:post][:thumbnail]
+      current_user.images.find(params[:post][:thumbnail]) if params[:post][:thumbnail]
+    end
+
+      # 同一ユーザーのみ許可
+    def require_same_user
+      if current_user != @post.user && user_signed_in? && !current_user.admin?
+        flash[:alert] = "投稿の編集、削除は投稿者ご自身のみ可能です。"
+        redirect_to @post
+      end
     end
 end
