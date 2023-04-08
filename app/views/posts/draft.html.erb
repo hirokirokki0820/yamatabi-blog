@@ -1,34 +1,38 @@
 <h1>下書き一覧</h1>
 <div class="album py-5 bg-light">
   <div class="container">
-    <div class="row">
-    <% @posts.order(created_at: :desc).each do |post| %>
-      <div class="col-md-4">
-        <%= link_to post, class: "card-link" do %>
-          <div class="card mb-4 shadow-sm">
-            <% if ActiveStorage::Blob.find_by(id: post.thumbnail) %>
-              <div class="post-index-thumbnail-box">
-                <%= image_tag ActiveStorage::Blob.find_by(id: post.thumbnail), class: "card-img-top" %>
-              </div>
-            <% else %>
-              <div class="post-index-thumbnail-box">
-                <%= image_tag "no_image.png", class: "card-img-top" %>
+    <% if @posts.exists? %>
+      <div class="row">
+        <% @posts.order(created_at: :desc).each do |post| %>
+          <div class="col-md-4">
+            <%= link_to post, class: "card-link" do %>
+              <div class="card mb-4 shadow-sm">
+                <% if ActiveStorage::Blob.find_by(id: post.thumbnail) %>
+                  <div class="post-index-thumbnail-box">
+                    <%= image_tag ActiveStorage::Blob.find_by(id: post.thumbnail), class: "card-img-top" %>
+                  </div>
+                <% else %>
+                  <div class="post-index-thumbnail-box">
+                    <%= image_tag "no_image.png", class: "card-img-top" %>
+                  </div>
+                <% end %>
+                <div class="card-body">
+                  <h1 class="card-text d-inline-block" style="height: 90px;"><%= post.title.truncate(35) %></h1>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="text-muted">
+                      <small><i class="fa-regular fa-clock"></i> <%= post.created_at.strftime('%Y/%m/%d')  %></small>
+                    </div>
+                    <!-- <small class="text-muted"><i class="fa-solid fa-clock-rotate-left"></i> <%= post.updated_at.strftime('%Y/%m/%d')  %></small> -->
+                  </div>
+                </div>
               </div>
             <% end %>
-            <div class="card-body">
-              <h1 class="card-text d-inline-block" style="height: 90px;"><%= post.title.truncate(35) %></h1>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="text-muted">
-                  <small><i class="fa-regular fa-clock"></i> <%= post.created_at.strftime('%Y/%m/%d')  %></small>
-                </div>
-                <!-- <small class="text-muted"><i class="fa-solid fa-clock-rotate-left"></i> <%= post.updated_at.strftime('%Y/%m/%d')  %></small> -->
-              </div>
-            </div>
           </div>
         <% end %>
       </div>
+    <% else %>
+      <p>記事がありません。</p>
     <% end %>
-    </div>
   </div>
   <div class="d-flex justify-content-end mx-2">
     <%= paginate @posts %>
