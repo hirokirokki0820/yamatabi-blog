@@ -10,7 +10,6 @@ class ImagesController < ApplicationController
       content_type: params[:file].content_type
     )
     current_user.images.attach(blob) #アップロード画像をユーザーと紐付け
-    # render json: blob
     render json: {location: url_for(blob), id: blob.id}, status: :ok
   end
 
@@ -20,18 +19,4 @@ class ImagesController < ApplicationController
     image.purge
   end
 
-    # メディア追加ボタンからアップロード
-  # def upload_image_from_media
-  #   @image_blob = create_blob(params[:file])
-  #   render json: @image_blob
-  # end
-
-  private
-  # def create_blob(file)
-  #   ActiveStorage::Blob.create_and_upload!(
-  #     io: file.open,
-  #     filename: file.original_filename,
-  #     content_type: file.content_type
-  #   )
-  # end
 end

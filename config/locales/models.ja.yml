@@ -10,6 +10,9 @@ ja:
         title: タイトル
         content: 本文
         thumbnail: アイキャッチ画像
+        status:
+          draft: 下書き
+          published: 公開中
         created_at: 投稿日
         updated_at: 更新日
       user:

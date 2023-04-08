@@ -1,6 +1,6 @@
 
-/********* 見出し(H2, H3, H4）, リスト, hr ********/
-.post-box h2 {
+/********* 見出し(H2, H3, H4）, ul li, table, hr ********/
+.post-content h2 {
   font-size: 1.5rem;
   font-weight: 700;
   padding: 1rem 1.2rem;
@@ -11,7 +11,7 @@
   background: #f4f4f4;
 }
 
-.post-box h3 {
+.post-content h3 {
   font-size: 1.3rem;
   padding: 0.8rem 0.5rem;
   margin: 1rem 0 1rem 0;
@@ -24,7 +24,7 @@
   font-weight: 600;
 }
 
-.post-box h4 {
+.post-content h4 {
   font-size: 1.2rem;
   font-weight: 600;
   position: relative;
@@ -55,14 +55,30 @@
   }
 }
 
+.post-content table {
+  display: inline-block;
+  width: 100%;
+  tbody {
+    border-top: 1px solid #555;
+    tr {
+      border-bottom: 1px solid #555;
+      // border-bottom: 1px solid #C5C5C5;
+      td {
+        // border: 1px solid #C5C5C5;
+        padding: 10px 20px 10px 20px;
+      }
+    }
+  }
+}
+
 @include media-breakpoint-down(md){
-  .post-box h2 {
+  .post-content h2 {
     font-size: 1.4rem;
   }
-  .post-box h3 {
+  .post-content h3 {
     font-size: 1.2rem;
   }
-  .post-box h4 {
+  .post-content h4 {
     font-size: 1.1rem;
   }
 }
@@ -264,13 +280,19 @@ hr {
   border-radius: 5px 5px 0 0;
 }
 
-@include media-breakpoint-down(lg){ // タブレット用
+@include media-breakpoint-only(md){
   .post-index-thumbnail-box { // アイキャッチ画像の上下中央寄せ
     height: 150px;
   }
 }
 
-@include media-breakpoint-down(md){ // スマホ用
+@include media-breakpoint-only(sm){
+  .post-index-thumbnail-box { // アイキャッチ画像の上下中央寄せ
+    height: 300px;
+  }
+}
+
+@include media-breakpoint-only(xs){ // スマホ用
   .post-index-thumbnail-box { // アイキャッチ画像の上下中央寄せ
     height: 240px;
   }
@@ -304,7 +326,19 @@ hr {
   margin-bottom: 60px;
 }
 
-@include media-breakpoint-down(md){
+@include media-breakpoint-only(md){
+  .post-show-thumbnail-box {
+    height: 350px;
+  }
+}
+
+@include media-breakpoint-only(sm){
+  .post-show-thumbnail-box {
+    height: 320px;
+  }
+}
+
+@include media-breakpoint-only(xs){
   .post-show-thumbnail-box {
     height: 220px;
   }

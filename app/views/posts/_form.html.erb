@@ -1,4 +1,4 @@
-<div data-controller="images confirms">
+<div data-controller="images confirms posts">
   <%= form_with(model: post) do |form| %>
     <% if post.errors.any? %>
       <div style="color: red">
@@ -15,7 +15,7 @@
     <!-- タイトル -->
     <div class="my-3">
       <%= form.label :title, for: "postTitleInput", class: "form-label fw-bold" %>
-      <%= form.text_field :title, class: "form-control", id: "postTitleInput" %>
+      <%= form.text_field :title, class: "form-control", id: "postTitleInput", data: { posts_target: "title" } %>
     </div>
 
     <!-- アイキャッチ画像 -->
@@ -52,19 +52,28 @@
       <button type="button" class="my-2 btn btn-secondary modal-btn" data-action="click->images#openModal" data-modal-type="content">
         <i class="fa-regular fa-image"></i> メディアを追加
       </button>
-      <%= form.text_area :content, class: "tinymce form-control", rows: 28, id: "postContentInput" %>
+      <%= form.text_area :content, class: "tinymce form-control", rows: 28, id: "postContentInput", data: { posts_target: "content" } %>
     </div>
 
+    <% if post.new_record? || post.draft? %>
+      <div class="my-3 d-flex justify-content-between">
+        <div>
+          <%= form.select :status, Post.statuses.keys.map { |k| [t("enums.post.status.#{k}"),k]}, {}, { class: "form-select mb-2 d-inline-block", data: { posts_target: "status", action: "posts#changeStatus" } } %>
+          <%= form.submit "下書き保存", class: "btn btn-secondary", data: { action: "click->confirms#notConfirm click->posts#insertNonTitle", posts_target: "submit" } %>
+        </div>
+        <% if !post.new_record? && post.draft? %>
+          <%= link_to "削除する", post, class: "d-inline-block text-danger", data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？", action: "click->confirms#notConfirm" } %>
+        <% end %>
+      </div>
+    <% else %>
     <div class="my-3 d-flex justify-content-between">
-      <% if post.new_record? %>
-        <%= form.submit "公開する", class: "btn btn-primary", data: { action: "click->confirms#notConfirm" } %>
-      <% else %>
-        <%= form.submit "更新する", class: "btn btn-primary", data: { action: "click->confirms#notConfirm" } %>
-      <% end %>
-      <% if !post.new_record? %>
-        <%= link_to "削除する", post, class: "d-inline-block text-danger", data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？", action: "click->confirms#notConfirm" } %>
-      <% end %>
+      <div>
+        <%= form.select :status, Post.statuses.keys.map { |k| [t("enums.post.status.#{k}"),k]}, {}, { class: "form-select mb-2 d-inline-block", data: { posts_target: "status", action: "posts#changeStatus" } } %>
+        <%= form.submit "更新する", class: "btn btn-primary", data: { action: "click->confirms#notConfirm click->posts#insertNonTitle", posts_target: "submit" } %>
+      </div>
+      <%= link_to "削除する", post, class: "d-inline-block text-danger", data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？", action: "click->confirms#notConfirm" } %>
     </div>
+    <% end %>
   <% end %>
 
   <!-- メディア追加用のモーダル -->

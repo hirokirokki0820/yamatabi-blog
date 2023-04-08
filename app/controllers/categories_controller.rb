@@ -7,7 +7,7 @@ class CategoriesController < ApplicationController
   end
 
   def show
-    @posts = @category.posts.page(params[:page]).per(12).order(created_at: :desc)
+    @posts = @category.posts.published.page(params[:page]).per(12).order(created_at: :desc)
   end
 
   def new

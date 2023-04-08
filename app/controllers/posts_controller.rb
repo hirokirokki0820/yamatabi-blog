@@ -1,16 +1,22 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[ show edit update destroy ]
   # before_action :require_admin_user, only: %i[ new create edit update destroy ]
-  before_action :require_same_user, only: %i[ edit update destroy ]
-  before_action :authenticate_user!, only: %i[ new create edit update destroy ]
+  before_action :require_same_user_edit, only: %i[ confirm edit update destroy ]
+  before_action :authenticate_user!, except: %i[ index show ]
 
   # GET /posts or /posts.json
   def index
-    @posts = Post.all.page(params[:page]).per(12)
+    @posts = Post.published.page(params[:page]).per(12)
+  end
+
+  # 下書き投稿リスト
+  def draft
+    @posts = current_user.posts.draft.page(params[:page]).per(12)
   end
 
   # GET /posts/1 or /posts/1.json
   def show
+    require_login if @post.draft?
   end
 
   # GET /posts/new
@@ -25,11 +31,14 @@ class PostsController < ApplicationController
   # POST /posts or /posts.json
   def create
     @post = Post.new(post_params)
-
     respond_to do |format|
       if @post.save
-        format.html { redirect_to post_url(@post), notice: "Post was successfully created." }
-        format.json { render :show, status: :created, location: @post }
+        if @post.draft?
+          redirect_to edit_post_path(@post), notice: "下書き保存に成功しました。"
+        else
+          format.html { redirect_to post_url(@post), notice: "記事が公開されました。" }
+          format.json { render :show, status: :created, location: @post }
+        end
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @post.errors, status: :unprocessable_entity }
@@ -68,7 +77,7 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:title, :content, :thumbnail, category_ids: []).merge(user_id: current_user.id)
+      params.require(:post).permit(:title, :content, :thumbnail, :status, category_ids: []).merge(user_id: current_user.id)
     end
 
     def uploaded_image
@@ -76,7 +85,7 @@ class PostsController < ApplicationController
     end
 
       # 同一ユーザーのみ許可
-    def require_same_user
+    def require_same_user_edit
       if current_user != @post.user && user_signed_in? && !current_user.admin?
         flash[:alert] = "投稿の編集、削除は投稿者ご自身のみ可能です。"
         redirect_to @post

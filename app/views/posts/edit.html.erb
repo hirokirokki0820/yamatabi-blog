@@ -1,3 +1,7 @@
-<h1>投稿の編集</h1>
+<% if @post.draft? %>
+  <h1>下書きの編集</h1>
+<% else %>
+  <h1>投稿の編集</h1>
+<% end %>
 
 <%= render "form", post: @post %>

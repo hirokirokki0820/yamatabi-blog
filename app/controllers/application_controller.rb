@@ -6,4 +6,9 @@ class ApplicationController < ActionController::Base
       redirect_to root_path
     end
   end
+
+  # ログインユーザーのみ許可
+  def require_login
+    redirect_to new_user_session_path if !user_signed_in?
+  end
 end

@@ -12,3 +12,6 @@ application.register("hello", HelloController)
 
 import ImagesController from "./images_controller"
 application.register("images", ImagesController)
+
+import PostsController from "./posts_controller"
+application.register("posts", PostsController)
