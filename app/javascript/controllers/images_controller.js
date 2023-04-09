@@ -73,7 +73,7 @@ export default class extends Controller {
     fetch("/images/upload_image", options)
       .then(response => response.json())
       .then(data => {
-        this.previewImage(file, data.id)
+        this.previewImage(file, data.id, data.location)
       })
       .catch((error) => {
         console.error(error)
@@ -104,7 +104,7 @@ export default class extends Controller {
   }
 
   // 画像のプレビュー
-  previewImage(file, blob_id){
+  previewImage(file, blob_id, blob_src){
     const previewImages = this.preview_imagesTarget
     const fileReader = new FileReader()
     const setAttr = (element, obj)=>{
@@ -122,7 +122,7 @@ export default class extends Controller {
       }
       setAttr(imgBox, imgBoxAttr)
       imgBox.appendChild(img)
-      img.src = this.result
+      img.src = blob_src
       img.id = blob_id
       img.class = "mx-auto"
       previewImages.prepend(imgBox)
