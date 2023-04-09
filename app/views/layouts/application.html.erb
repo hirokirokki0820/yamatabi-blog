@@ -4,6 +4,7 @@
     <title>YamatabiBlog</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="turbo-visit-control" content="reload">
+    <meta name="google-site-verification" content="<%= Rails.application.credentials.dig(:google, :site_verification_key) %>" />
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
