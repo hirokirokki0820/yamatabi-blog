@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>YamatabiBlog</title>
+    <title>山が好き旅が好き</title>
+    <meta name="description" content="山と旅が好きな管理人がお届けする、波瀾万丈な山旅ブログです。僕自身が体験したことをありのままに面白おかしく発信するよう努めるので、どうか真に受けずに肩の力を抜いてご覧ください。">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="turbo-visit-control" content="reload">
+    <!-- Googleサーチコンソール有効化用のメタタグ -->
     <meta name="google-site-verification" content="<%= Rails.application.credentials.dig(:google, :site_verification_key) %>" />
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -14,7 +16,7 @@
     <script src="https://cdn.tiny.cloud/1/<%= Rails.application.credentials.dig(:tinymce, :api_key) %>/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <script src="https://kit.fontawesome.com/<%= Rails.application.credentials.dig(:fontawesome, :api_key) %>.js" crossorigin="anonymous"></script>
     <!-- Googleアナリティクス用タグ -->
-    <% if !current_user.admin? %>
+    <% if current_user == false || current_user.nil? %>
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-1K9Y3P0D39"></script>
       <script>
         window.dataLayer = window.dataLayer || [];
