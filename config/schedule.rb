@@ -4,7 +4,7 @@ set :environment, rails_env # cronを実行する環境変数をセット
 set :output, "#{Rails.root}/log/crontab.log" # cronのログ出力用ファイル
 
 # サイトマップの生成
-every 1.day, :at => '5:00 am' do
+every 1.day, at: '5:00 am' do
   rake "-s sitemap:refresh"
 end
 
