@@ -1,7 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>山が好き旅が好き</title>
+    <% if current_page?(root_path) %>
+      <title>山が好き旅が好き</title>
+    <% elsif current_page?(profile_path) %>
+      <title>プロフィール</title>
+    <% elsif current_page?(categories_path) %>
+      <title>カテゴリー</title>
+    <% elsif (controller_path == "posts") %>
+      <title><%= @post.title %></title>
+    <% elsif (controller_path == "categories" && action_name == "show") %>
+      <title>カテゴリー：<%= @category.name %></title>
+    <% end %>
     <meta name="description" content="山と旅が好きな管理人がお届けする、波瀾万丈な山旅ブログです。僕自身が体験したことをありのままに面白おかしく発信するよう努めるので、どうか真に受けずに肩の力を抜いてご覧ください。">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="turbo-visit-control" content="reload">
