@@ -24,7 +24,7 @@ module YamatabiBlog
 
     # sanitaize allowed tags
     config.action_view.sanitized_allowed_tags = %w(h1 h2 h3 h4 h5 h6 ul ol li p span a img table tbody th tr td em br b strong s)
-    config.action_view.sanitized_allowed_attributes = %w(id class href style src)
+    config.action_view.sanitized_allowed_attributes = %w(id class href style src target rel)
 
     # config.eager_load_paths << Rails.root.join("extras")
   end
