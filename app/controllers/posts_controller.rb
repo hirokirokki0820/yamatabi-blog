@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[ show edit update destroy ]
-  # before_action :require_admin_user, only: %i[ new create edit update destroy ]
+  before_action :set_images, only: %i[ new edit update destroy ]
+  before_action :require_admin_user, only: %i[ new create edit update destroy ]
   before_action :require_same_user_edit, only: %i[ confirm edit update destroy ]
   before_action :authenticate_user!, except: %i[ index show ]
 
@@ -66,6 +67,12 @@ class PostsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_post
       @post = Post.find(params[:id])
+    end
+
+    def set_images
+      if current_user.images.exists?
+        @images = current_user.images.page(params[:page]).per(30).order(created_at: :desc)
+      end
     end
 
     # Only allow a list of trusted parameters through.
