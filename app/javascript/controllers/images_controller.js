@@ -124,7 +124,8 @@ export default class extends Controller {
       imgBox.appendChild(img)
       img.src = blob_src
       img.id = blob_id
-      img.class = "mx-auto"
+      img.classList.add("mx-auto")
+      console.log(img)
       previewImages.prepend(imgBox)
     })
   }
@@ -167,7 +168,8 @@ export default class extends Controller {
   }
 
 
-  /********** 画像挿入時の処理 ***********/
+  /********** メディアライブラリの画像を選択したときの動作 ***********/
+  // 選択した画像にCSSを適用させる（1枚のみ）
   selectedImageBox(e){
     const imageBoxSelected = e.currentTarget // 現在の要素を取得( e.currentTarget )
     const imageBoxes = document.querySelectorAll(".image-box-selected")
@@ -177,21 +179,21 @@ export default class extends Controller {
     imageBoxSelected.classList.add("image-box-selected")
   }
 
+  // 選択の解除
+  resetSelectedImage(){
+    const selectedImages = this.preview_imagesTarget.querySelectorAll(".image-box-selected")
+    for(const selectedImage of selectedImages){
+      selectedImage.classList.remove("image-box-selected")
+    }
+  }
 
+  /********** テキストエディアに画像を挿入 ***********/
   insertImageTag() {
     const selectedImageBox = document.querySelector(".image-box-selected")
     if(selectedImageBox){
       const selectedImageTag = selectedImageBox.firstElementChild
       const sr = `${selectedImageTag.getAttribute("src")}`
       tinymce.activeEditor.insertContent('<img src="' + sr + '" class="image-size" />')
-    }
-  }
-
-  //resetSelectedImage
-  resetSelectedImage(){
-    const selectedImages = this.preview_imagesTarget.querySelectorAll(".image-box-selected")
-    for(const selectedImage of selectedImages){
-      selectedImage.classList.remove("image-box-selected")
     }
   }
 

@@ -99,13 +99,15 @@
           <hr style="border: 1px solid #e3e1e1">
           <div class="my-2" data-images-target="preview_images">
             <!-- アップロード済みの画像をプレビュー(無限スクロール) -->
-            <%= turbo_frame_tag "images-page-#{@images.current_page}" do %>
-              <% @images.each do |image| %>
-                <div class="image-box d-inline-flex justify-content-center mx-1 mb-3" data-action="click->images#selectedImageBox">
-                  <%= image_tag(image, class: "mx-auto", id: image.blob_id) %>
-                </div>
+            <% if current_user.images.exists? %>
+              <%= turbo_frame_tag "images-page-#{@images.current_page}" do %>
+                <% @images.each do |image| %>
+                  <div class="image-box d-inline-flex justify-content-center mx-1 mb-3" data-action="click->images#selectedImageBox">
+                    <%= image_tag(image, class: "mx-auto", id: image.blob_id) %>
+                  </div>
+                <% end %>
+                <%= turbo_frame_tag "images-page-#{@images.next_page}", loading: :lazy, src: path_to_next_page(@images) %>
               <% end %>
-              <%= turbo_frame_tag "images-page-#{@images.next_page}", loading: :lazy, src: path_to_next_page(@images) %>
             <% end %>
           </div>
         </div>
