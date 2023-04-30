@@ -125,7 +125,6 @@ export default class extends Controller {
       img.src = blob_src
       img.id = blob_id
       img.classList.add("mx-auto")
-      console.log(img)
       previewImages.prepend(imgBox)
     })
   }
