@@ -11,10 +11,16 @@
                 <% if ActiveStorage::Blob.find_by(id: post.thumbnail) %>
                   <div class="post-index-thumbnail-box">
                     <%= image_tag ActiveStorage::Blob.find_by(id: post.thumbnail), class: "card-img-top" %>
+                    <div class="post-category-on-thumbnail">
+                      <span><%= @category.name %></span>
+                    </div>
                   </div>
                 <% else %>
                   <div class="post-index-thumbnail-box">
                     <%= image_tag "no_image.png", class: "card-img-top" %>
+                    <div class="post-category-on-thumbnail">
+                      <span><%= @category.name %></span>
+                    </div>
                   </div>
                 <% end %>
                 <div class="card-body">

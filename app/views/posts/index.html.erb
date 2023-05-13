@@ -19,10 +19,28 @@
               <% if ActiveStorage::Blob.find_by(id: post.thumbnail) %>
                 <div class="post-index-thumbnail-box">
                   <%= image_tag ActiveStorage::Blob.find_by(id: post.thumbnail), class: "card-img-top" %>
+                  <% if post.categories.exists? %>
+                    <div class="post-category-on-thumbnail">
+                      <span><%= post.categories.first.name %></span>
+                    </div>
+                  <% else %>
+                    <div class="none-category-on-thumbnail">
+                      <span>カテゴリーなし</span>
+                    </div>
+                  <% end %>
                 </div>
               <% else %>
                 <div class="post-index-thumbnail-box">
                   <%= image_tag "no_image.png", class: "card-img-top" %>
+                  <% if post.categories.exists? %>
+                    <div class="post-category-on-thumbnail">
+                      <span><%= post.categories.first.name %></span>
+                    </div>
+                  <% else %>
+                    <div class="none-category-on-thumbnail">
+                      <span>カテゴリーなし</span>
+                    </div>
+                  <% end %>
                 </div>
               <% end %>
               <div class="card-body">

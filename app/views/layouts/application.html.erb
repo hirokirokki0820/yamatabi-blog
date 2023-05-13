@@ -3,7 +3,7 @@
   <head>
     <% if current_page?(root_path) %>
       <title>山が好き旅が好き</title>
-    <% elsif current_page?(profile_path) %>
+    <% elsif current_page?(about_path) %>
       <title>プロフィール</title>
     <% elsif current_page?(categories_path) %>
       <title>カテゴリー</title>
@@ -61,6 +61,8 @@
         <%= render 'layouts/navigation' %>
       </header>
       <div class="container">
+        <p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>
         <%= yield %>
         <% if Rails.env.development? %>
         <!--

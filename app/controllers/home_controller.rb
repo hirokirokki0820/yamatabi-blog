@@ -2,6 +2,6 @@ class HomeController < ApplicationController
   def top
   end
 
-  def profile
+  def about
   end
 end

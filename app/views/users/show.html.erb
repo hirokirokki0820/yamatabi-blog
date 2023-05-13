@@ -1,0 +1,9 @@
+<h1>プロフィール</h1>
+
+<h4>ユーザー名</h4>
+<%= @user.name %>
+
+<h4>プロフィール</h4>
+<%= sanitize @user.profile %>
+
+<%= link_to "トップへ戻る", root_path %>
