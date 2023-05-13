@@ -31,7 +31,7 @@
     <% end %>
     <div class="post-content">
       <%#= sanitize(post.content, tags: %w(table tr td img)) %>
-      <%= simple_format post.content %>
+      <%= sanitize post.content %>
     </div>
   </div>
 </div>
