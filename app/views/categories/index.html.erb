@@ -18,7 +18,7 @@
       <div class="album py-4 bg-light">
         <div class="container">
           <div class="row">
-          <% category.posts.first(6).each do |post| %>
+          <% category.posts.order(created_at: :desc).first(6).each do |post| %>
             <div class="col-md-4">
               <%= link_to post, class: "card-link" do %>
                 <div class="card mb-4 shadow-sm">
