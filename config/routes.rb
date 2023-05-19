@@ -7,6 +7,11 @@ Rails.application.routes.draw do
   get "users/:id/profile", to: "users#show", as: 'users_profile'
   get "users/mypage", to: "users#mypage"
 
+  # カテゴリー
+  resources :categories, param: :permalink
+  post "images/upload_image", to: "images#upload_image"
+  post "images/delete_image", to: "images#delete_image"
+
   # 投稿
   resources :posts, only: [:index, :new], param: :permalink do
     collection do
@@ -19,9 +24,4 @@ Rails.application.routes.draw do
   patch ":permalink", to: "posts#update"
   put ":permalink", to: "posts#update"
   delete ":permalink", to: "posts#destroy"
-
-  # カテゴリー
-  resources :categories, param: :permalink
-  post "images/upload_image", to: "images#upload_image"
-  post "images/delete_image", to: "images#delete_image"
 end
