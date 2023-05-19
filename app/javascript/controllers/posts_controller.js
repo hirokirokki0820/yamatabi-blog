@@ -16,6 +16,8 @@ export default class extends Controller {
   permalinkValidation(){
     const permalinkInput = this.permalinkTarget
     const permalinkError = this.error_permalinkTarget
+    const permalinkRegex = /^[0-9a-zA-Z\-]+$/
+    const currentPermalink = this.current_permalinkTarget.textContent // 現在の投稿のパーマリンク
     const submitBtn = this.submitTarget
 
     // セットされているTimeoutをクリアする
@@ -27,9 +29,13 @@ export default class extends Controller {
         permalinkError.textContent = "パーマリンクを入力してください"
         permalinkError.style.color = "red"
         submitBtn.disabled = true
+      }else if(!permalinkRegex.test(permalinkInput.value)){
+        permalinkInput.style.border = "2px solid red"
+        permalinkError.textContent = "半角英数字とハイフンのみで入力してください(空白NG)"
+        permalinkError.style.color = "red"
+        submitBtn.disabled = true
       }else{
         const csrfToken = document.getElementsByName('csrf-token')[0].content // CSRFトークンを取得
-        const currentPermalink = this.current_permalinkTarget.textContent // 現在の投稿のパーマリンク
         const options = {
           method: "POST", // POSTメソッドを指定
           headers: {
