@@ -5,6 +5,12 @@
       <%= f.text_field :name, class: "form-control", id: "categoryNameInput" %>
     </div>
 
+    <!-- パーマリンク -->
+    <div class="my-3">
+      <%= f.label :permalink, for: "categoryPermalinkInput", class: "form-label fw-bold" %>
+      <%= f.text_field :permalink, class: "form-control", id: "categoryPermalinkInput" %>
+    </div>
+
     <!-- submit -->
     <div class="my-3 d-flex justify-content-between">
       <%= f.submit (category.new_record? ? "保存する" : "更新する"), class: "btn btn-primary", data: { action: "click->confirms#notConfirm" } %>

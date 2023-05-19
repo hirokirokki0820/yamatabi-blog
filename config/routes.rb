@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       get "draft"
     end
   end
-  resources :categories
+  resources :categories, param: :permalink
   post "images/upload_image", to: "images#upload_image"
   post "images/delete_image", to: "images#delete_image"
 end
