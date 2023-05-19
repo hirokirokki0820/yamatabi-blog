@@ -68,6 +68,9 @@ class PostsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_post
       @post = Post.find_by(permalink: params[:permalink])
+      if @post.nil?
+        render_404 # ページが見つからなかった場合は404を返す
+      end
     end
 
     def set_images

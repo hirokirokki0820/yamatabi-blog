@@ -1,11 +1,51 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>ページが見つかりませんでした。(404)</title>
+  <title>サーバーエラーが発生しました。(500)</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta charset="UTF-8">
   <link rel="stylesheet" href="/assets/application-3856bca8000ebea3978fd307307e1b383211065829927d82b6ccfa28911ccd1d.css" data-turbo-track="reload">
   <style>
+  .container {
+    max-width: 90%;
+  }
+
+  .header-box {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 0 auto;
+  }
+
+  .nav-menu-box {
+    font-size: 1.1rem;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-left: 10px;
+  }
+
+  .nav-menu-box ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-menu-box ul li {
+    list-style: none;
+    display: inline-block;
+    margin-right: 20px;
+  }
+
+  .nav-menu-box ul li a {
+    text-decoration: none;
+    color: #6C757D;
+  }
+
+  .nav-menu-box ul li a:hover {
+    color:rgba(26, 83, 120, 0.6);
+  }
+
   .rails-default-error-page {
     color: #2E2F30;
     text-align: center;
@@ -57,22 +97,23 @@
 
 <body class="rails-default-error-page">
   <header>
-    <div class="header-box container d-flex justify-content-between flex-wrap">
-      <div class="blog-title-box">
+    <div class="header-box container">
+      <h1 class="blog-title">
         <a href="/">
           <img width="350px" src="/assets/blog-title-4d3ab914a431d2a0496a54b55d93c4014b210693c96e58dc24c62d7b7b514606.png">
+          <title>山が好き旅が好き</title>
         </a>
-      </div>
+      </h1>
       <nav class="nav-menu-box">
         <ul>
           <li><a href="/">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Category</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/categories">Category</a></li>
         </ul>
       </nav>
     </div>
   </header>
-  <!-- This file lives in public/404.html -->
+  <!-- This file lives in public/500.html -->
   <div class="dialog">
     <div>
       <h1>サーバーエラーが発生しました。(500)</h1>

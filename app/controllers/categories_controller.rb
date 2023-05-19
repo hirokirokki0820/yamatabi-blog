@@ -48,6 +48,9 @@ class CategoriesController < ApplicationController
 
   def set_category
     @category = Category.find_by(permalink: params[:permalink])
+    if @category.nil?
+      render_404 # ページが見つからなかった場合は404を返す
+    end
   end
 
 end
