@@ -6,4 +6,9 @@ class Post < ApplicationRecord
   validates :permalink, uniqueness: true,
   length: { maximum: 100 }
   enum status: { published: 1, draft: 0}
+
+  def to_param
+    permalink
+  end
+
 end

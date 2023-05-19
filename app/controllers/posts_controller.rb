@@ -32,6 +32,7 @@ class PostsController < ApplicationController
   # POST /posts or /posts.json
   def create
     @post = Post.new(post_params)
+    @post.permalink = @post.title if @post.permalink.blank?
     if @post.save
       if @post.draft?
         redirect_to post_url(@post), notice: "記事が保存されました。"
@@ -66,7 +67,7 @@ class PostsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
-      @post = Post.find(params[:id])
+      @post = Post.find_by(permalink: params[:permalink])
     end
 
     def set_images
@@ -77,7 +78,7 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:title, :content, :thumbnail, :status, category_ids: []).merge(user_id: current_user.id)
+      params.require(:post).permit(:title, :content, :thumbnail, :permalink, :status, category_ids: []).merge(user_id: current_user.id)
     end
 
     def uploaded_image
