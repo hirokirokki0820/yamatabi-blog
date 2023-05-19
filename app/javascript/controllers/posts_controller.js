@@ -16,7 +16,7 @@ export default class extends Controller {
   permalinkValidation(){
     const permalinkInput = this.permalinkTarget
     const permalinkError = this.error_permalinkTarget
-    const permalinkRegex = /^[0-9a-zA-Z\-]+$/
+    const permalinkRegex = /^[0-9a-zA-Z\-]*$/
     const currentPermalink = this.current_permalinkTarget.textContent // 現在の投稿のパーマリンク
     const submitBtn = this.submitTarget
 
@@ -24,12 +24,7 @@ export default class extends Controller {
     clearTimeout(this.timeoutPermalink)
 
     this.timeoutPermalink = setTimeout(() =>{
-      if(permalinkInput.value === ""){ // パーマリンクが未入力の場合
-        permalinkInput.style.border = "2px solid red"
-        permalinkError.textContent = "パーマリンクを入力してください"
-        permalinkError.style.color = "red"
-        submitBtn.disabled = true
-      }else if(!permalinkRegex.test(permalinkInput.value)){
+      if(!permalinkRegex.test(permalinkInput.value)){
         permalinkInput.style.border = "2px solid red"
         permalinkError.textContent = "半角英数字とハイフンのみで入力してください(空白NG)"
         permalinkError.style.color = "red"
