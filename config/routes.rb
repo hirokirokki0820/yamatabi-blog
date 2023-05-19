@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   post "images/upload_image", to: "images#upload_image"
   post "images/delete_image", to: "images#delete_image"
 
+  # パーマリンクが登録済みかチェック（バリデーション）
+  post "check_permalink", to: "posts#is_registered?"
+
   # 投稿
   resources :posts, only: [:index, :new], param: :permalink do
     collection do

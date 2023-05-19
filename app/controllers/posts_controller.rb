@@ -22,7 +22,7 @@ class PostsController < ApplicationController
 
   # GET /posts/new
   def new
-    @post = Post.new
+    @post = Post.new()
   end
 
   # GET /posts/1/edit
@@ -32,7 +32,6 @@ class PostsController < ApplicationController
   # POST /posts or /posts.json
   def create
     @post = Post.new(post_params)
-    @post.permalink = @post.title if @post.permalink.blank?
     if @post.save
       if @post.draft?
         redirect_to post_url(@post), notice: "記事が保存されました。"
@@ -40,6 +39,7 @@ class PostsController < ApplicationController
         redirect_to post_url(@post), notice: "記事が公開されました。"
       end
     else
+      @post = Post.new(post_params)
       render :new, status: :unprocessable_entity
     end
   end
@@ -64,6 +64,12 @@ class PostsController < ApplicationController
     end
   end
 
+  # パーマリンクがすでに存在するものかどうかチェックする
+  def is_registered?
+    post = Post.find_by(permalink: params[:permalink]) # クリエパラメータに埋め込んだパーマリンク（フォームに入力したキーワード）から投稿を検索（なければnullを返す）
+    render json: post
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
@@ -84,6 +90,7 @@ class PostsController < ApplicationController
       params.require(:post).permit(:title, :content, :thumbnail, :permalink, :status, category_ids: []).merge(user_id: current_user.id)
     end
 
+    # アップロード済みの画像からサムネイル画像を検索
     def uploaded_image
       current_user.images.find(params[:post][:thumbnail]) if params[:post][:thumbnail]
     end

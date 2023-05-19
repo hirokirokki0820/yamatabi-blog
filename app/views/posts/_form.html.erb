@@ -21,7 +21,9 @@
     <!-- パーマリンク -->
     <div class="my-3">
       <%= form.label :permalink, for: "postPermalinkInput", class: "form-label fw-bold" %>
-      <%= form.text_field :permalink, class: "form-control", id: "postPermalinkInput" %>
+      <%= form.text_field :permalink, class: "form-control", id: "postPermalinkInput", data: { posts_target: "permalink", action: "input->posts#permalinkValidation" } %>
+      <div data-posts-target="current_permalink" hidden><%= post.permalink %></div>
+      <p data-posts-target="error_permalink"></p>
     </div>
 
     <!-- アイキャッチ画像 -->
