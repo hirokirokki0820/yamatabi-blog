@@ -70,6 +70,21 @@ class PostsController < ApplicationController
     render json: post
   end
 
+  # 特定のツイートを取得する
+  def get_tweet
+    tweet_url = "https://api.twitter.com/2/tweets/#{params[:tweet_id]}"
+    options = {
+      method: 'GET',
+      headers: {
+        # "User-Agent" => "v2RubyExampleCode",
+        "Authorization" => "Bearer #{Rails.application.credentials[:twitter][:bearer_token]}",
+      }
+    }
+    request = Typhoeus::Request.new(tweet_url, options)
+    response = request.run
+    render json: response.body
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
@@ -100,6 +115,16 @@ class PostsController < ApplicationController
       if current_user != @post.user && user_signed_in? && !current_user.admin?
         flash[:alert] = "投稿の編集、削除は投稿者ご自身のみ可能です。"
         redirect_to @post
+      end
+    end
+
+    # Twitter API Key & Access Token
+    def twitter_client
+      client = Twitter::REST::Client.new do |config|
+        config.consumer_key        = Rails.application.credentials[:twitter][:api_key]
+        config.consumer_secret     = Rails.application.credentials[:twitter][:api_secret]
+        config.access_token        = Rails.application.credentials[:twitter][:access_token]
+        config.access_token_secret = Rails.application.credentials[:twitter][:access_token_secret]
       end
     end
 end

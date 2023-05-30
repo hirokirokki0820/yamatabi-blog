@@ -110,3 +110,9 @@ gem 'capistrano3-puma'
 
 # enum
 gem 'enum_help'
+
+# Twitter API
+gem "twitter"
+
+# Typhoeus(httpリクエスト)
+gem 'typhoeus'

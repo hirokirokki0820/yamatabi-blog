@@ -15,6 +15,9 @@ Rails.application.routes.draw do
   # パーマリンクが登録済みかチェック（バリデーション）
   post "check_permalink", to: "posts#is_registered?"
 
+  #
+  post "get_tweet", to: "posts#get_tweet"
+
   # 投稿
   resources :posts, only: [:index, :new], param: :permalink do
     collection do

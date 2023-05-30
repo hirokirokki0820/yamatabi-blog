@@ -60,6 +60,9 @@
       <button type="button" class="my-2 btn btn-secondary modal-btn" data-action="click->images#openModal" data-modal-type="content">
         <i class="fa-regular fa-image"></i> メディアを追加
       </button>
+      <button type="button" class="my-2 btn btn-secondary modal-btn" data-action="click->posts#openModal">
+        <i class="fa-solid fa-code"></i> 埋め込み
+      </button>
       <%= form.text_area :content, class: "tinymce form-control", rows: 28, id: "postContentInput", data: { posts_target: "content" } %>
     </div>
 
@@ -126,6 +129,35 @@
           <div data-images-target="modal_footer">
             <!-- ここにボタンを追加 -->
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 埋め込みリンク用のモーダル -->
+  <div class="modal fade" id="embedLinkModal" tabindex="-1" aria-labelledby="embedLinkModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="embedLinkModalLabel">Twitter または YouTube の埋め込み</h1>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3" data-posts-target="embed_type">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="twitter" value="twitter">
+              <label class="form-check-label" for="twitter">Twitter</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="youtube" value="youtube">
+              <label class="form-check-label" for="youtube">YouTube</label>
+            </div>
+          </div>
+          <div class="mb-3">
+            <input type="text" class="form-control" data-posts-target="embed_input" placeholder="ここにリンクを入力">
+          </div>
+        </div>
+        <div class="modal-footer d-flex justify-content-end">
+          <button class="btn btn-primary" data-action="click->posts#insertEmbedLink" data-bs-dismiss="modal">リンクを挿入</button>
         </div>
       </div>
     </div>
