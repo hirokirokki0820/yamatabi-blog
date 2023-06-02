@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   # パーマリンクが登録済みかチェック（バリデーション）
   post "check_permalink", to: "posts#is_registered?"
 
-  #
+  # 特定のツイートを取得
   post "get_tweet", to: "posts#get_tweet"
 
   # 投稿

@@ -27,7 +27,7 @@
     <script src="https://cdn.tiny.cloud/1/<%= Rails.application.credentials.dig(:tinymce, :api_key) %>/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <script src="https://kit.fontawesome.com/<%= Rails.application.credentials.dig(:fontawesome, :api_key) %>.js" crossorigin="anonymous"></script>
     <!-- Googleアナリティクス用タグ -->
-    <% if (current_user.admin == false || current_user.nil?) && Rails.env.production? %>
+    <% if (current_user.nil? || current_user.admin == false) && Rails.env.production? %>
       <!-- Google Tag Manager -->
       <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
       new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],

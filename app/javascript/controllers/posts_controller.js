@@ -81,7 +81,6 @@ export default class extends Controller {
   openModal(e){
     const imageModal = new bootstrap.Modal(document.getElementById('embedLinkModal'), {})
     imageModal.show()
-
   }
 
   /******* Twitter または YouTube の埋め込み *******/
@@ -109,7 +108,7 @@ export default class extends Controller {
           fetch("/get_tweet" + "?" + query_params, options)
             .then(response => response.json())
             .then(response => {
-              tinymce.activeEditor.insertContent('<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">' + response.data.text + '</p><a href="' + tweetURL + '"></a></blockquote><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>')
+              tinymce.activeEditor.insertContent('<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">' + response.data.text + '</p><a href="' + tweetURL + '"></a></blockquote><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><br>')
           })
         }else if(embedSelect.value === "youtube" && !(embedInput.value === "")){
           const youtubeEmbedURL = `${embedInput.value}`
